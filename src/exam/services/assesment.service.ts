@@ -32,9 +32,15 @@ export class AssesmentService{
         return response;
     }
 
-    public async fetchAssesment(){
-        const response = await this.assesmentDBModel.find({},{...DEFAULT_MONGODB_ANTI_PROJECTION});
-        return response;
+    public async fetchAssesment(assesment_id:string){
+        if(assesment_id){
+            const response = await this.assesmentDBModel.find({assesment_id : assesment_id},{...DEFAULT_MONGODB_ANTI_PROJECTION});
+            return response;
+        }
+        else{
+            const response = await this.assesmentDBModel.find({},{...DEFAULT_MONGODB_ANTI_PROJECTION});
+            return response;
+        }
     }
     public async fetchQuesions(assesment_id:string,ans:boolean){
         const questions = await this.questionDBModel.find({ assesment_id : assesment_id },{...DEFAULT_MONGODB_ANTI_PROJECTION}).lean();
@@ -92,3 +98,20 @@ export class AssesmentService{
 
 
 }
+
+/** -> a,b,cd
+ *     border: 1px solid gray;
+    border-radius: 39px;
+    padding: 17px 22px;
+    background-color: #e3e3e3;
+}
+ */
+
+/** complete length
+ * display: flex
+;
+    flex-wrap: wrap;
+    padding-bottom: 0px;
+    border: 1px solid gray;
+    border-radius: 32px;
+ */

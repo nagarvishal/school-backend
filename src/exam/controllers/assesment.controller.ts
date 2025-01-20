@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Inject, Param, Post, Query } from "@nestjs/common";
 import { AssesmentDataDTO } from "../dto/assesment.dto";
 import { AssesmentService } from "../services/assesment.service";
 import { QuestionDataDTO } from "../dto/assesment.dto";
@@ -40,7 +40,9 @@ export class AssesmentController{
 
 
     @Get('/fetch')
-    async fetchAssesments(){
-        return await this.aservice.fetchAssesment();
+    async fetchAssesments(@Query('assesment_id') assesment_id : string){
+        return await this.aservice.fetchAssesment(assesment_id);
     } 
+
+
 }
