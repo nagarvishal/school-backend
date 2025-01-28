@@ -2,6 +2,7 @@ import { Body, Controller, Get, Inject, Param, Post, Query } from "@nestjs/commo
 import { AssesmentDataDTO } from "../dto/assesment.dto";
 import { AssesmentService } from "../services/assesment.service";
 import { QuestionDataDTO } from "../dto/assesment.dto";
+import { StudentAnswersDTO } from "../dto/answer.dto";
 
 @Controller("/assesment")
 export class AssesmentController{
@@ -10,6 +11,11 @@ export class AssesmentController{
     @Post('/add')  /** This function for Add Assesment */
     async addAssesments(@Body() reqbody:AssesmentDataDTO){
         return await this.aservice.addAssesment(reqbody);
+    }
+
+    @Post('/answer/submit')
+    async submitStudentAnswer(@Body() reqbody:StudentAnswersDTO){
+        return await this.aservice.submitStudentAnswer(reqbody);
     }
 
     @Post("/question/add") /** This Function for Add Question to Assesment */
@@ -32,17 +38,10 @@ export class AssesmentController{
         return await this.aservice.fetchQuesions(assesment_id,false);
     }
 
-
-
-
-    
-
-
-
     @Get('/fetch')
-    async fetchAssesments(@Query('assesment_id') assesment_id : string){
-        return await this.aservice.fetchAssesment(assesment_id);
-    } 
+    async fetchAssesments(@Query() filter : any){
+        return await this.aservice.fetchAssesment(filter);
+    }
 
 
 }

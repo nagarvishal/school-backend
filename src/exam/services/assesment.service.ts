@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CONNECTION_NAME, DB_COLLECTION_NAME, DEFAULT_MONGODB_ANTI_PROJECTION } from "src/_constant/database.constant";
 import { CommonService } from "src/_common/common.service";
+import { ComputeService } from "./compute.service";
 
 @Injectable()
 export class AssesmentService{
@@ -19,10 +20,38 @@ export class AssesmentService{
         @InjectModel(DB_COLLECTION_NAME.answer,CONNECTION_NAME)
         private readonly answerDBModel:Model<any>,
 
+        @InjectModel(DB_COLLECTION_NAME.studentanswers,CONNECTION_NAME)
+        private readonly studentAnswerDBModel:Model<any>,
 
-        @Inject(CommonService) public service:CommonService
+
+        @Inject(CommonService) public service:CommonService,
+        @Inject(ComputeService) public computeService:ComputeService
     ){
         
+    }
+    
+    public async submitStudentAnswer(reqbody:any){
+        const subject_id = reqbody.subject_id;
+        const assesment_id = reqbody.assesment_id;
+        const user_id = reqbody.user_id;
+        const clas  = reqbody.class;
+        const answers = reqbody.answers;
+        const AQuestions = await this.fetchQuesions(assesment_id,true);
+
+        const marks = await this.computeService.computeMarks(AQuestions,answers);
+        const student_answer_id = await this.service.genunique(this.studentAnswerDBModel,"studentanswer","AS","");
+        await this.assesmentDBModel.create({
+            student_answer_id : student_answer_id ,
+            assesment_id : assesment_id,
+            subject_id : subject_id ,
+            user_id : user_id ,
+            class : clas,
+            answers : answers,
+            marks : marks,
+        })
+        return {
+            
+        }
     }
 
     public async addAssesment(reqbody:any){
@@ -32,9 +61,9 @@ export class AssesmentService{
         return response;
     }
 
-    public async fetchAssesment(assesment_id:string){
-        if(assesment_id){
-            const response = await this.assesmentDBModel.find({assesment_id : assesment_id},{...DEFAULT_MONGODB_ANTI_PROJECTION});
+    public async fetchAssesment(filter:any={}){
+        if(filter && Object.keys(filter).length>0){
+            const response = await this.assesmentDBModel.find(filter,{...DEFAULT_MONGODB_ANTI_PROJECTION});
             return response;
         }
         else{

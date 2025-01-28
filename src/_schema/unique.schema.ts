@@ -31,6 +31,9 @@ export class UniqueSchemaClass extends Document {
 
   @Prop({required:true})
   answer:number
+
+  @Prop({required:true})
+  studentanswer:number
 }
 
 export const UniqueSchema = SchemaFactory.createForClass(UniqueSchemaClass);

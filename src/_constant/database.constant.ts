@@ -8,7 +8,8 @@ export const DB_COLLECTION_NAME = {
     template:"in_template",
     question:"in_question",
     answer:"in_answer",
-    assesment:"in_assesment"
+    assesment:"in_assesment",
+    studentanswers:"in_student_answers"
 }
 
 export const CONNECTION_NAME = 'school';

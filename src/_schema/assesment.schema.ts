@@ -85,6 +85,37 @@ export class AnswerSchemaClass extends Document
 
 export const AnswerSchema = SchemaFactory.createForClass(AnswerSchemaClass);
 
+@Schema({
+    timestamps:true,
+    collection:DB_COLLECTION_NAME.studentanswers,
+    autoIndex:true
+})
+export class StudentAnswersSchema extends Document
+{
+    @Prop({unique:true,required:true,type:String})
+    student_answer_id:string
+
+    @Prop({type:String,required:true})
+    user_id:string
+
+    @Prop({type:String,required:true})
+    assesment_id:string
+
+    @Prop({type:String,required:true})
+    subject_id:string
+
+    @Prop({type:String,required:true})
+    class:string
+
+    @Prop({type:Number,required:true})
+    marks:number   
+    
+    @Prop({required:true,type: MongooseSchema.Types.Mixed})
+    answers : Record<string,any>
+
+    
+}
+export const StudentAnswerSchema = SchemaFactory.createForClass(StudentAnswersSchema);
 
 
 
