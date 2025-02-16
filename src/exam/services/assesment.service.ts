@@ -39,8 +39,9 @@ export class AssesmentService{
         const AQuestions = await this.fetchQuesions(assesment_id,true);
 
         const marks = await this.computeService.computeMarks(AQuestions,answers);
-        const student_answer_id = await this.service.genunique(this.studentAnswerDBModel,"studentanswer","AS","");
-        await this.assesmentDBModel.create({
+
+        const student_answer_id = await this.service.genunique(this.uniqueDBModel,"studentanswer","AS","");
+        const response = await this.studentAnswerDBModel.create({
             student_answer_id : student_answer_id ,
             assesment_id : assesment_id,
             subject_id : subject_id ,
@@ -50,8 +51,10 @@ export class AssesmentService{
             marks : marks,
         })
         return {
-            
+            "message":"Assesmenet Successfully Done",
+            ...response
         }
+
     }
 
     public async addAssesment(reqbody:any){
