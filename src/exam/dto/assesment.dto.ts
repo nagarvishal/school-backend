@@ -13,7 +13,7 @@ export class AssesmentDataDTO
 
     @IsNotEmpty()
     @IsNumber()
-    duration:string
+    duration:number
 
     @IsArray()
     question_ids: string;

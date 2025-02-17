@@ -127,6 +127,12 @@ export class AssesmentService{
         else throw new HttpException("Given Question Id is not Defined",HttpStatus.BAD_REQUEST);
     }
 
+    public async  fetchStudentAnswers(filter:any)
+    {
+        const response =  await this.studentAnswerDBModel.find(filter,DEFAULT_MONGODB_ANTI_PROJECTION);
+        return response;
+    }
+
 
 
 }

@@ -43,5 +43,11 @@ export class AssesmentController{
         return await this.aservice.fetchAssesment(filter);
     }
 
+    @Get("/student/answers") /** This function for fetch the assesment submission answers of student */
+    async fetchStudentAnswers(@Query() filter:any) {
+        return await this.aservice.fetchStudentAnswers(filter);
+    }
 
+    
+    
 }
