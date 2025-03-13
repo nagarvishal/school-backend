@@ -14,6 +14,7 @@ import { AuthMiddleware } from './_middlewares/auth.middleware';
 import { CurriculumModule } from './curriculum/curriculum.module';
 import { EmailModule } from './_email/email.module';
 import { AssesmentModule } from './exam/assesment.module';
+import { AwsModule } from './_aws/aws.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { AssesmentModule } from './exam/assesment.module';
     JwtConfigModule,
     CurriculumModule,
     EmailModule,
-    AssesmentModule
+    AssesmentModule,
+    AwsModule
   ],
   controllers: [],
   providers: [

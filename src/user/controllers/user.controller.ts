@@ -23,11 +23,11 @@ export class UserController {
     
     @Put()
     updateUser(){
-        return this.SService.updateUser()
+        return this.SService.updateUser();
     }
 
     @Delete()
-    deleteUser(){
+    deleteUser(){   
         return this.SService.deleteUser()
     }
 }

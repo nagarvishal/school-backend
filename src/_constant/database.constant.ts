@@ -9,7 +9,8 @@ export const DB_COLLECTION_NAME = {
     question:"in_question",
     answer:"in_answer",
     assesment:"in_assesment",
-    studentanswers:"in_student_answers"
+    studentanswers:"in_student_answers",
+    document:"in_document"
 }
 
 export const CONNECTION_NAME = 'school';
